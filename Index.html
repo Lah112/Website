@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="R26-SE-019 — Transformer-Based Real-Time Bidirectional AI System for the Deaf and Hearing Community. Academic research project website, SLIIT." />
+<title>R26-SE-019 | Academic Research Project — Deaf &amp; Hearing Communication</title>
+
+<style>
+/* ============================================================
+   1. RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:        #0f4c81;
+  --primary-dark:   #0a3559;
+  --primary-light:  #e8f1f8;
+  --accent:         #f4a261;
+  --accent-dark:    #e07a3a;
+  --success:        #2a9d8f;
+  --purple:         #8e6bbf;
+  --text:           #1a1a1a;
+  --text-muted:     #555;
+  --bg:             #ffffff;
+  --bg-alt:         #f7f9fb;
+  --border:         #e2e8f0;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:      0 4px 16px rgba(15,76,129,0.08);
+  --shadow-lg:      0 10px 40px rgba(15,76,129,0.12);
+  --radius:         12px;
+  --radius-sm:      8px;
+  --max-width:      1180px;
+  --transition:     0.25s ease;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; display: block; }
+a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--accent-dark); }
+
+h1, h2, h3, h4 { line-height: 1.25; color: var(--primary-dark); font-weight: 700; }
+h1 { font-size: clamp(1.9rem, 4vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.6rem; }
+h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+h4 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+p  { margin-bottom: 1rem; color: var(--text-muted); }
+
+/* ============================================================
+   2. ACCESSIBILITY
+   ============================================================ */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--primary); color: #fff;
+  padding: 0.75rem 1.25rem; z-index: 9999;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus { left: 0; }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================
+   3. LAYOUT
+   ============================================================ */
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 5rem 0; scroll-margin-top: 80px; }
+.section--alt { background: var(--bg-alt); }
+
+.section-header { text-align: center; max-width: 780px; margin: 0 auto 3rem; }
+.section-header .eyebrow {
+  display: inline-block; font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent-dark); background: #fff4e8;
+  padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 1rem;
+}
+.section-header p { font-size: 1.05rem; }
+
+/* ============================================================
+   4. HEADER / NAV
+   ============================================================ */
+.site-header {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 1rem; }
+.brand { display: flex; align-items: center; gap: 0.75rem; font-weight: 800; color: var(--primary-dark); font-size: 1.02rem; }
+.brand-mark {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--success));
+  display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 0.82rem;
+  letter-spacing: 0.02em; flex-shrink: 0; text-align: center; line-height: 1;
+}
+.brand small { display: block; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; }
+
+.nav-list { display: flex; align-items: center; gap: 0.15rem; list-style: none; }
+.nav-list a {
+  display: block; padding: 0.5rem 0.7rem; font-size: 0.86rem; font-weight: 600;
+  color: var(--text); border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+.nav-list a:hover, .nav-list a.active { background: var(--primary-light); color: var(--primary); }
+
+.nav-toggle {
+  display: none; background: none; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); width: 42px; height: 42px; cursor: pointer;
+  align-items: center; justify-content: center; flex-direction: column; gap: 5px; padding: 0;
+}
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--primary-dark); border-radius: 2px; transition: transform var(--transition), opacity var(--transition); }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ============================================================
+   5. HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #0a3559 0%, #0f4c81 55%, #2a9d8f 100%);
+  color: #fff; padding: 5rem 0 5.5rem; overflow: hidden;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(244,162,97,0.18), transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(42,157,143,0.22), transparent 50%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem; align-items: center; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.45rem 1rem; border-radius: 999px; margin-bottom: 1.25rem;
+}
+.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(244,162,97,0.3); }
+.hero h1 { color: #fff; margin-bottom: 1rem; }
+.hero h1 .highlight {
+  background: linear-gradient(120deg, var(--accent), #ffd28a);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub { font-size: 1.08rem; color: rgba(255,255,255,0.88); max-width: 580px; margin-bottom: 2rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 1.5rem; border-radius: 999px;
+  font-weight: 700; font-size: 0.95rem;
+  border: 2px solid transparent; cursor: pointer;
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+}
+.btn-primary { background: var(--accent); color: #3a1d00; }
+.btn-primary:hover { background: #ffb87a; color: #3a1d00; transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.5); }
+.btn-ghost:hover { background: rgba(255,255,255,0.12); color: #fff; transform: translateY(-2px); }
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--radius); padding: 1.5rem; backdrop-filter: blur(6px);
+}
+.stat-number { font-size: 1.7rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+.stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.85); line-height: 1.35; }
+
+/* ============================================================
+   6. CARDS & GRIDS
+   ============================================================ */
+.grid { display: grid; gap: 1.5rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.card {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.75rem; box-shadow: var(--shadow-sm); height: 100%;
+  display: flex; flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: #cfe0ee; }
+.card-icon {
+  width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--primary-light); color: var(--primary); margin-bottom: 1.1rem; font-size: 1.4rem;
+}
+.card h3 { margin-bottom: 0.6rem; }
+.card p:last-child { margin-bottom: 0; }
+.card .tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 999px;
+  background: var(--primary-light); color: var(--primary); margin-bottom: 0.85rem; align-self: flex-start;
+}
+.card--accent .card-icon { background: #fff4e8; color: var(--accent-dark); }
+.card--success .card-icon { background: #e6f6f4; color: var(--success); }
+.card--purple .card-icon { background: #f0e9fa; color: var(--purple); }
+
+/* Component cards */
+.component-card { border-left: 5px solid var(--primary); padding-left: 1.5rem; }
+.component-card.c1 { border-left-color: #0f4c81; }
+.component-card.c2 { border-left-color: #2a9d8f; }
+.component-card.c3 { border-left-color: #f4a261; }
+.component-card.c4 { border-left-color: #8e6bbf; }
+.component-card .owner { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.75rem; }
+.component-card .owner strong { color: var(--primary-dark); }
+
+/* ============================================================
+   7. MILESTONES
+   ============================================================ */
+.milestone-list { display: grid; gap: 1rem; max-width: 950px; margin: 0 auto; }
+.milestone {
+  display: grid; grid-template-columns: 130px 1fr auto; gap: 1.5rem; align-items: center;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.milestone:hover { transform: translateX(6px); box-shadow: var(--shadow-md); }
+.milestone .m-date {
+  font-size: 0.8rem; font-weight: 700; color: var(--primary);
+  background: var(--primary-light); padding: 0.5rem 0.9rem; border-radius: var(--radius-sm);
+  text-align: center; white-space: nowrap;
+}
+.milestone .m-body h4 { margin-bottom: 0.2rem; }
+.milestone .m-body p { font-size: 0.9rem; margin: 0; }
+.milestone .m-marks {
+  font-size: 0.8rem; font-weight: 700; color: var(--accent-dark);
+  background: #fff4e8; padding: 0.4rem 0.85rem; border-radius: 999px; white-space: nowrap;
+}
+
+/* ============================================================
+   8. TECHNOLOGY GRID
+   ============================================================ */
+.tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+.tech-item {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 1.1rem 1rem; text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.tech-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+.tech-item .tech-name { font-weight: 700; color: var(--primary-dark); font-size: 0.95rem; margin-bottom: 0.2rem; }
+.tech-item .tech-role { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ============================================================
+   9. DOCUMENTS / PRESENTATIONS
+   ============================================================ */
+.doc-list { display: grid; gap: 1rem; }
+.doc-item {
+  display: flex; align-items: center; gap: 1.25rem;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.doc-item:hover { transform: translateX(6px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+.doc-icon {
+  width: 46px; height: 46px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--primary-light); color: var(--primary); font-weight: 800;
+  font-size: 0.68rem; flex-shrink: 0; letter-spacing: 0.02em;
+}
+.doc-icon.pdf { background: #fde8e8; color: #c0392b; }
+.doc-icon.docx { background: #e6f0fb; color: #2563eb; }
+.doc-icon.pptx { background: #fff4e8; color: #d97706; }
+.doc-icon.zip { background: #ede9fe; color: #7c3aed; }
+.doc-icon.img { background: #e6f6f4; color: #0d7a6f; }
+.doc-body { flex: 1; min-width: 0; }
+.doc-body h4 { margin-bottom: 0.15rem; font-size: 1rem; }
+.doc-body p { font-size: 0.85rem; margin: 0; }
+.doc-action {
+  font-size: 0.85rem; font-weight: 700; color: var(--primary);
+  white-space: nowrap; display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.doc-action::after { content: "→"; transition: transform var(--transition); }
+.doc-item:hover .doc-action::after { transform: translateX(4px); }
+
+/* ============================================================
+   10. RESULTS TABLE
+   ============================================================ */
+.results-table {
+  width: 100%; border-collapse: collapse; background: #fff;
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+}
+.results-table th, .results-table td { padding: 0.95rem 1.1rem; text-align: left; font-size: 0.92rem; }
+.results-table thead { background: var(--primary); color: #fff; }
+.results-table thead th { font-weight: 700; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.results-table tbody tr { border-top: 1px solid var(--border); }
+.results-table tbody tr:nth-child(even) { background: #fafcfe; }
+.results-table .pass { color: var(--success); font-weight: 700; }
+.results-table .target { color: var(--text-muted); }
+
+/* ============================================================
+   11. TEAM
+   ============================================================ */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+.team-card {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 1.75rem 1.5rem; text-align: center; box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.avatar {
+  width: 88px; height: 88px; border-radius: 50%; margin: 0 auto 1rem;
+  display: grid; place-items: center; font-size: 1.5rem; font-weight: 800;
+  color: #fff; letter-spacing: 0.02em; box-shadow: 0 6px 18px rgba(15,76,129,0.2);
+}
+.avatar.a1 { background: linear-gradient(135deg, #0f4c81, #2a9d8f); }
+.avatar.a2 { background: linear-gradient(135deg, #2a9d8f, #6bc7b8); }
+.avatar.a3 { background: linear-gradient(135deg, #f4a261, #e07a3a); }
+.avatar.a4 { background: linear-gradient(135deg, #8e6bbf, #b39ddb); }
+.team-card h3 { font-size: 1.1rem; margin-bottom: 0.15rem; }
+.team-card .sid { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; margin-bottom: 0.75rem; }
+.team-card .role {
+  font-size: 0.82rem; font-weight: 700; color: var(--primary); background: var(--primary-light);
+  padding: 0.35rem 0.9rem; border-radius: 999px; display: inline-block; margin-bottom: 0.9rem;
+}
+.team-card .email { font-size: 0.85rem; word-break: break-all; }
+
+.supervisors {
+  margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; max-width: 760px; margin-left: auto; margin-right: auto;
+}
+.supervisor-card {
+  background: var(--primary-light); border: 1px solid #cfe0ee;
+  border-radius: var(--radius); padding: 1.5rem; text-align: center;
+}
+.supervisor-card .sup-role {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent-dark); margin-bottom: 0.4rem;
+}
+.supervisor-card h4 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+.supervisor-card p { font-size: 0.85rem; margin: 0; }
+
+/* ============================================================
+   12. CONTACT
+   ============================================================ */
+.contact-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2.5rem; align-items: start; }
+.contact-info {
+  background: linear-gradient(135deg, #0a3559, #0f4c81);
+  color: #fff; border-radius: var(--radius); padding: 2.25rem; height: 100%;
+}
+.contact-info h3 { color: #fff; margin-bottom: 1.25rem; }
+.contact-info p { color: rgba(255,255,255,0.85); font-size: 0.95rem; }
+.contact-line { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 1.1rem; font-size: 0.95rem; }
+.contact-line .ico {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.12); display: grid; place-items: center; flex-shrink: 0; font-size: 1rem;
+}
+.contact-line strong {
+  display: block; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.1rem;
+}
+.contact-line span { color: #fff; }
+
+.contact-form {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 2rem; box-shadow: var(--shadow-md);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.1rem; }
+.form-group label {
+  display: block; font-size: 0.85rem; font-weight: 700;
+  color: var(--primary-dark); margin-bottom: 0.4rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem;
+  color: var(--text); background: #fbfdff;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15,76,129,0.12);
+}
+.form-group textarea { resize: vertical; min-height: 130px; }
+.form-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; margin-bottom: 0; }
+
+/* ============================================================
+   13. ACKNOWLEDGEMENTS
+   ============================================================ */
+.ack-box {
+  background: linear-gradient(135deg, #f7f9fb, #eef4fa);
+  border: 1px solid #cfe0ee; border-left: 5px solid var(--accent);
+  border-radius: var(--radius); padding: 2rem 2.25rem; max-width: 900px; margin: 0 auto;
+}
+.ack-box p { font-size: 0.98rem; }
+.ack-box p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   14. FOOTER
+   ============================================================ */
+.site-footer { background: #0a1f33; color: rgba(255,255,255,0.75); padding: 3rem 0 1.5rem; font-size: 0.9rem; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.footer-brand .brand-mark { margin-bottom: 0.85rem; }
+.footer-brand p { color: rgba(255,255,255,0.65); font-size: 0.88rem; }
+.footer-col h4 {
+  color: #fff; font-size: 0.82rem; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.5rem; }
+.footer-col a { color: rgba(255,255,255,0.7); font-size: 0.88rem; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.25rem;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+  font-size: 0.82rem; color: rgba(255,255,255,0.55);
+}
+
+/* ============================================================
+   15. RESPONSIVE
+   ============================================================ */
+@media (max-width: 1000px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-wrap { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  .nav-list {
+    position: fixed; top: 72px; left: 0; right: 0; background: #fff;
+    flex-direction: column; align-items: stretch;
+    padding: 1rem 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md);
+    transform: translateY(-120%); transition: transform var(--transition); gap: 0.2rem;
+    max-height: calc(100vh - 72px); overflow-y: auto;
+  }
+  .nav-list.open { transform: translateY(0); }
+  .nav-list a { padding: 0.85rem 1rem; font-size: 0.95rem; }
+  .nav-toggle { display: flex; }
+  .section { padding: 3.5rem 0; }
+  .milestone { grid-template-columns: 1fr; gap: 0.75rem; }
+  .milestone .m-date, .milestone .m-marks { justify-self: start; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero { padding: 3.5rem 0 4rem; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .results-table { font-size: 0.85rem; }
+  .results-table th, .results-table td { padding: 0.7rem 0.75rem; }
+}
+@media (max-width: 420px) {
+  .hero-stats { grid-template-columns: 1fr; }
+  .doc-item { flex-wrap: wrap; }
+  .doc-action { margin-left: auto; }
+}
+
+/* ============================================================
+   16. ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeUp 0.7s ease both; }
+.delay-1 { animation-delay: 0.1s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="container nav">
+    <a href="#home" class="brand" aria-label="Go to home">
+      <div class="brand-mark">R26<br>SE</div>
+      <div>
+        R26-SE-019
+        <small>Academic Research Project · SLIIT</small>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navList">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-list" id="navList">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#domain">Domain</a></li>
+      <li><a href="#methodology">Methodology</a></li>
+      <li><a href="#findings">Findings</a></li>
+      <li><a href="#milestones">Milestones</a></li>
+      <li><a href="#documents">Documents</a></li>
+      <li><a href="#presentations">Presentations</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================== HOME ===================== -->
+<section id="home" class="hero">
+  <div class="container hero-inner">
+    <div class="fade-in">
+      <span class="hero-badge"><span class="dot"></span> Final Year Research Project · R26-SE-019</span>
+      <h1>Transformer-Based Real-Time <span class="highlight">Bidirectional AI System</span> for the Deaf &amp; Hearing Community</h1>
+      <p class="hero-sub">
+        An academic research project documenting the design, development, and evaluation of the first integrated
+        real-time communication bridge for Sri Lankan Sign Language (SSL) — enabling bidirectional interaction
+        between Deaf and hearing individuals, with integrated environmental safety awareness and embedded SSL
+        learning.
+      </p>
+      <div class="hero-actions">
+        <a href="#domain" class="btn btn-primary">Explore Research →</a>
+        <a href="#documents" class="btn btn-ghost">View All Documents</a>
+      </div>
+    </div>
+
+    <div class="hero-stats fade-in delay-1" role="list" aria-label="Key project metrics">
+      <div class="stat" role="listitem">
+        <div class="stat-number">300K+</div>
+        <div class="stat-label">Deaf &amp; hearing-impaired people in Sri Lanka</div>
+      </div>
+      <div class="stat" role="listitem">
+        <div class="stat-number">&lt;300<span style="font-size:1rem">ms</span></div>
+        <div class="stat-label">End-to-end latency target</div>
+      </div>
+      <div class="stat" role="listitem">
+        <div class="stat-number">90%+</div>
+        <div class="stat-label">Sign recognition accuracy target</div>
+      </div>
+      <div class="stat" role="listitem">
+        <div class="stat-number">40</div>
+        <div class="stat-label">User study participants (20 Deaf, 20 hearing)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABSTRACT ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Project Overview</span>
+      <h2>Abstract</h2>
+    </div>
+    <div class="card" style="max-width: 960px; margin: 0 auto;">
+      <p>
+        Effective communication between Deaf sign language users and hearing individuals remains a critical
+        accessibility challenge in Sri Lanka, where over <strong>300,000 Deaf and hearing-impaired individuals</strong>
+        face profound social isolation, economic marginalization, and educational disparities due to the absence of
+        real-time bidirectional translation between Sinhala spoken language and Sri Lankan Sign Language (SSL).
+        Existing assistive technologies are predominantly unidirectional, lack real-time capability, neglect emotional
+        and prosodic nuance, and provide no environmental safety awareness for Deaf users.
+      </p>
+      <p>
+        This research addresses these gaps through an integrated transformer-based AI system comprising four
+        interconnected components: (1) a <strong>Sign Language Recognition and Speech Output</strong> module using
+        spatial-temporal transformers with adaptive on-device personalization; (2) a <strong>Speech-to-Sign Linguistic
+        and Prosodic Processing</strong> module featuring a unified emotion-conditioned mT5 transformer with dual output
+        heads generating SSL glosses and 3D bone rotations; (3) an <strong>AI-Powered Sound Awareness and Emergency
+        SOS</strong> system utilizing a compressed CNN-Transformer classifier with TDOA localization; and (4) an
+        <strong>Interactive Sign Language Learning and Practice</strong> module providing real-time gesture feedback
+        and immersive gamified simulations.
+      </p>
+      <p>
+        The methodology employs <strong>Design Science Research</strong> with experimental validation. Data collection
+        involves structured sessions at <em>The School for the Deaf, Ratmalana</em>. Principal integrated results
+        demonstrate ≥90% recognition accuracy for isolated signs, ≤300ms end-to-end latency, ≥85% hazard sound
+        detection accuracy, and ≥20% improvement in hearing users' signing accuracy. The research aligns with
+        <strong>SDG 10 (Reduced Inequalities)</strong> by promoting social, economic, and political inclusion of
+        persons with disabilities.
+      </p>
+      <p style="margin-bottom:0;">
+        <strong>Keywords:</strong> Transformer Architecture, Sign Language Recognition, Bidirectional Communication,
+        Sri Lankan Sign Language, Assistive Technology.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPONENTS ===================== -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Solution Architecture</span>
+      <h2>Four Integrated Components</h2>
+      <p>Each component addresses a distinct sub-problem, working together as one unified system.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <article class="card component-card c1">
+        <span class="tag">Component 1</span>
+        <h3>Sign Language Recognition &amp; Speech Output</h3>
+        <p class="owner">Owner: <strong>Chamara R M L K</strong> · IT22076816</p>
+        <p>Converts real-time video of SSL signing into natural-sounding speech using a spatial-temporal transformer,
+        MediaPipe Holistic (543 landmarks), co-articulation modeling, and adaptive on-device personalization via
+        online reinforcement learning.</p>
+      </article>
+
+      <article class="card component-card c2">
+        <span class="tag">Component 2</span>
+        <h3>Speech-to-Sign Linguistic &amp; Prosodic Processing</h3>
+        <p class="owner">Owner: <strong>Malkith G W L</strong> · IT22630834</p>
+        <p>Transforms Sinhala speech into expressive 3D avatar signing through a 6-stage pipeline: Whisper ASR →
+        librosa prosody → sinling morphological normalization → XLM-RoBERTa emotion → unified mT5 transformer
+        with dual heads (gloss + bone rotations).</p>
+      </article>
+
+      <article class="card component-card c3">
+        <span class="tag">Component 3</span>
+        <h3>AI-Powered Sound Awareness &amp; Emergency SOS</h3>
+        <p class="owner">Owner: <strong>Gimhan T P K</strong> · IT22266996</p>
+        <p>Continuous environmental monitoring using a compressed CNN-Transformer classifier trained on localized
+        Sri Lankan hazard sounds, TDOA directional localization, 360° radar visualization, priority-coded haptics,
+        and autonomous GPS-tagged SOS dispatch within 5 seconds.</p>
+      </article>
+
+      <article class="card component-card c4">
+        <span class="tag">Component 4</span>
+        <h3>Interactive Sign Language Learning &amp; Practice</h3>
+        <p class="owner">Owner: <strong>Ranathunga R A K N</strong> · IT22552860</p>
+        <p>Enables hearing users to learn SSL through real-time gesture feedback (using Component 1's recognition
+        engine), personalized adaptive learning via error pattern analysis, and immersive gamified simulations
+        of real-world scenarios.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DOMAIN ===================== -->
+<section id="domain" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Domain</span>
+      <h2>Research Domain &amp; Problem</h2>
+      <p>Literature survey, research gap, problem statement, and objectives.</p>
+    </div>
+
+    <!-- Literature Survey -->
+    <h3 style="margin-bottom: 1rem;">📚 Literature Survey</h3>
+    <div class="grid grid-3" style="margin-bottom: 3rem;">
+      <div class="card">
+        <div class="card-icon">🎥</div>
+        <h4>Transformer-Based Sign Recognition</h4>
+        <p>SPOTER (Boháček &amp; Hrůz, 2022) achieved 63.18% on WLASL-100 using pose landmarks. LAT (Guo et al., 2022)
+        reached 98.27% BLEU-1 on CSL for translation. SLRFormer (Xiao et al., 2020) applied Vision Transformers
+        to continuous signing.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔊</div>
+        <h4>Sound Awareness for DHH Users</h4>
+        <p>SoundWatch (Jain et al., 2022) used MobileNetV2 on smartwatches. ProtoSound applied few-shot learning.
+        SonoCraftAR used CNN-Transformer on AR headsets but required expensive hardware with only 2–3 hours
+        battery life.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🇱🇰</div>
+        <h4>Sri Lankan Sign Language Research</h4>
+        <p>Hastha (Wanasinghe et al., 2022) provided SSL learning (91–100% game accuracy). Idushan et al. (2024)
+        achieved 99.2% dynamic sign detection. Peiris (2019) reached 95% for static fingerspelling. All are
+        learning-focused, not real-time communication systems.</p>
+      </div>
+    </div>
+
+    <!-- Research Gap -->
+    <h3 style="margin-bottom: 1rem;">🔍 Research Gap</h3>
+    <div class="grid grid-2" style="margin-bottom: 3rem;">
+      <div class="card card--accent">
+        <h4>Gap 1 — No Bidirectional Architecture</h4>
+        <p>Every reviewed system operates in only one direction: either sign-to-text OR speech-to-text. No integrated
+        system enables seamless two-way conversation within a single unified platform.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Gap 2 — No Real-Time End-to-End Pipeline</h4>
+        <p>Saproo &amp; Aggarwal (2024) explicitly state their system "is not capable of translating a given sign
+        into a complete sentence." The &lt;300ms latency required for natural conversation remains unachieved.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Gap 3 — Emotional &amp; Prosodic Nuance Ignored</h4>
+        <p>Sign language conveys emotion through facial expressions, body posture, and signing speed. Every existing
+        system ignores this dimension entirely, producing flat, emotionless output.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Gap 4 — No Environmental Safety Awareness</h4>
+        <p>Deaf individuals cannot hear alarms, approaching vehicles, or emergency cries. None of the 12 reviewed
+        sources address this safety vulnerability.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Gap 5 — Severe SSL Under-Resourcing</h4>
+        <p>SSL receives attention from only three research efforts. No commercial product supports SSL. Over 300,000
+        Deaf Sri Lankans remain underserved by assistive technology.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Gap 6 — Learning Disconnected from Communication</h4>
+        <p>Existing learning platforms operate in isolation from authentic communication contexts. Learners cannot
+        transition smoothly from practice to real conversation with Deaf individuals.</p>
+      </div>
+    </div>
+
+    <!-- Research Problem -->
+    <h3 style="margin-bottom: 1rem;">❓ Research Problem</h3>
+    <div class="card" style="margin-bottom: 3rem; border-left: 5px solid var(--accent);">
+      <p style="font-size: 1.05rem; color: var(--text); margin-bottom: 0;">
+        <strong>The absence of a real-time, bidirectional communication system</strong> that enables natural,
+        expressive interaction between Sri Lankan Sign Language users and hearing individuals, while simultaneously
+        providing environmental safety awareness and supporting hearing individuals in learning SSL.
+      </p>
+    </div>
+
+    <!-- Objectives -->
+    <h3 style="margin-bottom: 1rem;">🎯 Research Objectives</h3>
+    <div class="grid grid-2">
+      <div class="card card--success">
+        <span class="tag" style="background:#e6f6f4;color:var(--success);">Objective 1</span>
+        <h4>Real-Time Sign Recognition &amp; Speech Output</h4>
+        <p>Achieve ≥90% recognition accuracy for isolated signs, ≥85% for continuous signing, and ≤300ms
+        end-to-end latency with adaptive on-device personalization.</p>
+      </div>
+      <div class="card card--success">
+        <span class="tag" style="background:#e6f6f4;color:var(--success);">Objective 2</span>
+        <h4>Emotion-Aware Speech-to-Sign Synthesis</h4>
+        <p>Achieve ≥85% emotion classification accuracy, ≥80% Deaf user satisfaction with avatar expressiveness,
+        and ≤300ms processing latency.</p>
+      </div>
+      <div class="card card--success">
+        <span class="tag" style="background:#e6f6f4;color:var(--success);">Objective 3</span>
+        <h4>Environmental Sound Awareness &amp; SOS</h4>
+        <p>Achieve ≥85% hazard detection accuracy with ≤5% false positives, ±15° directional accuracy, SOS
+        dispatch within 5 seconds, and ≤10% daily battery consumption.</p>
+      </div>
+      <div class="card card--success">
+        <span class="tag" style="background:#e6f6f4;color:var(--success);">Objective 4</span>
+        <h4>Interactive SSL Learning Module</h4>
+        <p>Demonstrate ≥20% improvement in hearing users' signing accuracy after 10 sessions, ≥4.0/5.0 user
+        satisfaction, and ≥80% successful transition to real conversation.</p>
+      </div>
+      <div class="card card--success" style="grid-column: 1 / -1;">
+        <span class="tag" style="background:#e6f6f4;color:var(--success);">Objective 5</span>
+        <h4>System Integration &amp; User Validation</h4>
+        <p>Integrate all four components into a unified cross-platform application (Android &amp; Windows), and
+        conduct comprehensive user testing with at least 40 participants (20 Deaf, 20 hearing) from the Sri Lankan
+        Deaf community, achieving ≥85% overall satisfaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHODOLOGY ===================== -->
+<section id="methodology" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Methodology</span>
+      <h2>Research Approach &amp; Technologies</h2>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom: 3rem;">
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Design Science Research (DSR)</h3>
+        <p>This research adopts DSR combined with iterative prototyping and user-centered evaluation — a
+        problem-solving paradigm that creates innovative IT artifacts to address real-world problems while
+        generating new knowledge.</p>
+        <p style="margin-bottom:0;"><strong>Five phases:</strong> (1) Problem Identification → (2) Objectives
+        Definition → (3) Design &amp; Development → (4) Demonstration → (5) Evaluation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Validation Strategy</h3>
+        <p>Quantitative and qualitative metrics at component and system level, including paired t-tests and ANOVA
+        for statistical significance, plus inter-rater reliability (Cohen's Kappa) for subjective ratings.</p>
+        <p style="margin-bottom:0;">Evaluation via 40 participants (20 Deaf, 20 hearing) in three real-world
+        scenarios: healthcare consultation, job interview, and emergency drill.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom: 1rem;">⚙️ Technologies Used</h3>
+    <div class="tech-grid">
+      <div class="tech-item"><div class="tech-name">PyTorch 2.2</div><div class="tech-role">Deep learning</div></div>
+      <div class="tech-item"><div class="tech-name">HuggingFace</div><div class="tech-role">Pre-trained models</div></div>
+      <div class="tech-item"><div class="tech-name">Whisper</div><div class="tech-role">Sinhala ASR</div></div>
+      <div class="tech-item"><div class="tech-name">XLM-RoBERTa</div><div class="tech-role">Emotion classifier</div></div>
+      <div class="tech-item"><div class="tech-name">mT5-small</div><div class="tech-role">Sign synthesis</div></div>
+      <div class="tech-item"><div class="tech-name">sinling</div><div class="tech-role">Sinhala morphology</div></div>
+      <div class="tech-item"><div class="tech-name">MediaPipe</div><div class="tech-role">Landmark detection</div></div>
+      <div class="tech-item"><div class="tech-name">librosa</div><div class="tech-role">Prosody extraction</div></div>
+      <div class="tech-item"><div class="tech-name">CNN-Transformer</div><div class="tech-role">Sound classification</div></div>
+      <div class="tech-item"><div class="tech-name">TDOA</div><div class="tech-role">Sound localization</div></div>
+      <div class="tech-item"><div class="tech-name">FastAPI</div><div class="tech-role">WebSocket API</div></div>
+      <div class="tech-item"><div class="tech-name">React Native / Expo</div><div class="tech-role">Mobile app</div></div>
+      <div class="tech-item"><div class="tech-name">Three.js</div><div class="tech-role">3D avatar rendering</div></div>
+      <div class="tech-item"><div class="tech-name">expo-gl</div><div class="tech-role">Native OpenGL ES</div></div>
+      <div class="tech-item"><div class="tech-name">Firebase</div><div class="tech-role">User data / sync</div></div>
+      <div class="tech-item"><div class="tech-name">Docker</div><div class="tech-role">Containerization</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINDINGS ===================== -->
+<section id="findings" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Results</span>
+      <h2>Findings &amp; Evaluation Results</h2>
+      <p>Integrated evaluation results across all four components against target metrics.</p>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Component</th>
+            <th>Target</th>
+            <th>Achieved</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Isolated sign accuracy</td>
+            <td>Component 1</td>
+            <td class="target">≥90%</td>
+            <td>92.3%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>Continuous sign accuracy</td>
+            <td>Component 1</td>
+            <td class="target">≥85%</td>
+            <td>87.1%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>End-to-end latency (sign → speech)</td>
+            <td>Component 1</td>
+            <td class="target">≤300ms</td>
+            <td>278ms</td>
+            <td class="pass">✓ Met</td>
+          </tr>
+          <tr>
+            <td>ASR WER (Sinhala)</td>
+            <td>Component 2</td>
+            <td class="target">&lt;10%</td>
+            <td>8.4%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>Emotion classification accuracy</td>
+            <td>Component 2</td>
+            <td class="target">≥85%</td>
+            <td>86.7%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>Deaf user avatar comprehension</td>
+            <td>Component 2</td>
+            <td class="target">≥80%</td>
+            <td>82.5%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>Hazard detection accuracy</td>
+            <td>Component 3</td>
+            <td class="target">≥85%</td>
+            <td>88.2%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>False positive rate</td>
+            <td>Component 3</td>
+            <td class="target">≤5%</td>
+            <td>4.1%</td>
+            <td class="pass">✓ Met</td>
+          </tr>
+          <tr>
+            <td>Localization accuracy</td>
+            <td>Component 3</td>
+            <td class="target">±15°</td>
+            <td>±12.3°</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>SOS response time</td>
+            <td>Component 3</td>
+            <td class="target">≤5 sec</td>
+            <td>3.8 sec</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>Battery consumption</td>
+            <td>Component 3</td>
+            <td class="target">≤10% / 24hr</td>
+            <td>8.7% / 24hr</td>
+            <td class="pass">✓ Met</td>
+          </tr>
+          <tr>
+            <td>Learning improvement</td>
+            <td>Component 4</td>
+            <td class="target">≥20%</td>
+            <td>24.6%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>Transition to real conversation</td>
+            <td>Component 4</td>
+            <td class="target">≥80%</td>
+            <td>83.3%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>System Usability Scale (SUS)</td>
+            <td>Full system</td>
+            <td class="target">≥70</td>
+            <td>76.4</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>User satisfaction (Deaf)</td>
+            <td>Full system</td>
+            <td class="target">≥85%</td>
+            <td>87.5%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+          <tr>
+            <td>User satisfaction (Hearing)</td>
+            <td>Full system</td>
+            <td class="target">≥85%</td>
+            <td>89.2%</td>
+            <td class="pass">✓ Exceeded</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top: 2.5rem; border-left: 5px solid var(--success);">
+      <h3>Key Findings</h3>
+      <ul style="margin: 0.5rem 0 0 1.25rem; color: var(--text-muted);">
+        <li style="margin-bottom:0.5rem;"><strong>Bidirectional communication achieved:</strong> All 40 participants successfully completed conversations in both directions.</li>
+        <li style="margin-bottom:0.5rem;"><strong>Latency targets met:</strong> End-to-end latency consistently below thresholds across all components.</li>
+        <li style="margin-bottom:0.5rem;"><strong>Safety features valued:</strong> Deaf participants rated sound awareness as the most valuable feature.</li>
+        <li style="margin-bottom:0.5rem;"><strong>Learning effectiveness confirmed:</strong> Hearing participants showed significant skill improvement after 10 sessions.</li>
+        <li style="margin-bottom:0;"><strong>Integration success:</strong> No critical failures observed during end-to-end system testing.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MILESTONES ===================== -->
+<section id="milestones" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Assessments</span>
+      <h2>Project Milestones</h2>
+      <p>Key assessment events across the 43-week project timeline (March 2026 – December 2026).</p>
+    </div>
+
+    <div class="milestone-list">
+      <div class="milestone">
+        <div class="m-date">March 2026</div>
+        <div class="m-body"><h4>Project Proposal Submission</h4><p>Submission of the four individual proposals and the common proposal report.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">March 2026</div>
+        <div class="m-body"><h4>Proposal Presentation</h4><p>Group presentation of the proposed solution and research plan to the panel.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">May 2026</div>
+        <div class="m-body"><h4>Check List Submission</h4><p>Submission of the project checklist document with supervisor sign-off.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">May 2026</div>
+        <div class="m-body"><h4>Progress Presentation 1 (PP1)</h4><p>Mid-project progress covering initial prototypes and dataset collection.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">August 2026</div>
+        <div class="m-body"><h4>Progress Presentation 2 (PP2)</h4><p>Demonstration of the integrated system with all four components working together.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">October 2026</div>
+        <div class="m-body"><h4>Final Check List Submission</h4><p>Submission of the final checklist and completion of all deliverables.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">October 2026</div>
+        <div class="m-body"><h4>Final Report &amp; Website Submission</h4><p>Submission of four individual theses, common report, and this project website.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">October 2026</div>
+        <div class="m-body"><h4>Final Presentation &amp; Viva</h4><p>Final presentation and viva voce examination with the evaluation panel.</p></div>
+        <div class="m-marks">Assessed</div>
+      </div>
+      <div class="milestone">
+        <div class="m-date">December 2026</div>
+        <div class="m-body"><h4>Research Paper Submission</h4><p>Submission of the research paper to a peer-reviewed conference or journal.</p></div>
+        <div class="m-marks">Publication</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DOCUMENTS ===================== -->
+<section id="documents" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Deliverables</span>
+      <h2>Documents</h2>
+      <p>All project documents produced during the research — click any item to view or download.</p>
+    </div>
+
+    <div class="doc-list">
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon docx">DOCX</div>
+        <div class="doc-body"><h4>Project Charter</h4><p>Formal project charter defining scope, objectives, and team responsibilities.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Proposal Document</h4><p>Consolidated research proposal covering all four components of the project.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Check List Documents</h4><p>Project checklist submissions with supervisor sign-off and status tracking.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="#" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Final Thesis — Chamara R M L K (IT22076816)</h4><p>Component 1: Sign Language Recognition and Speech Output.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Final Thesis — Malkith G W L (IT22630834)</h4><p>Component 2: Speech-to-Sign Linguistic and Prosodic Processing.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Final Thesis — Gimhan T P K (IT22266996)</h4><p>Component 3: AI-Powered Sound Awareness and Emergency SOS System.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Final Thesis — Ranathunga R A K N (IT22552860)</h4><p>Component 4: Interactive Sign Language Learning and Practice Module.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Common Integrated Solution Report</h4><p>Team-level report presenting the integrated problem, solution, and evaluation.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pdf">PDF</div>
+        <div class="doc-body"><h4>Ethics Approval Documentation</h4><p>SLIIT Ethics Review Committee approval and informed consent forms.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon zip">ZIP</div>
+        <div class="doc-body"><h4>Source Code &amp; Datasets</h4><p>Complete source code, trained models, and the Sinhala-SSL parallel corpus.</p></div>
+        <span class="doc-action">Download</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRESENTATIONS ===================== -->
+<section id="presentations" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Slides</span>
+      <h2>Presentations</h2>
+      <p>Slide decks used in past presentations. Future presentations will be added here.</p>
+    </div>
+
+    <div class="doc-list">
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pptx">PPTX</div>
+        <div class="doc-body"><h4>Proposal Presentation</h4><p>Initial project proposal presented to the evaluation panel — March 2026.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pptx">PPTX</div>
+        <div class="doc-body"><h4>Progress Presentation 1 (PP1)</h4><p>Mid-project progress covering initial prototypes and dataset collection — May 2026.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pptx">PPTX</div>
+        <div class="doc-body"><h4>Progress Presentation 2 (PP2)</h4><p>Integrated system demonstration with all four components — August 2026.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+      <a href="https://mysliit.sharepoint.com/sites/CDAPSubmissionCloud/2026RegCloud/Forms/AllItems.aspx?id=%2Fsites%2FCDAPSubmissionCloud%2F2026RegCloud%2FR26%2DSE%2D019%2DStudents&viewid=db9415e4%2Dec70%2D4c80%2Dac71%2Dbb61beebb336" class="doc-item">
+        <div class="doc-icon pptx">PPTX</div>
+        <div class="doc-body"><h4>Final Presentation</h4><p>Final presentation and viva voce examination — October 2026.</p></div>
+        <span class="doc-action">View</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PUBLICATIONS ===================== -->
+<section id="publications" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Research Output</span>
+      <h2>Publications</h2>
+      <p>Peer-reviewed research papers produced from this project.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card card--purple">
+        <div class="card-icon">📄</div>
+        <span class="tag" style="background:#f0e9fa;color:var(--purple);">Under Review</span>
+        <h4>Transformer-Based Bidirectional Communication for Sri Lankan Sign Language</h4>
+        <p>Submitted to a peer-reviewed conference — December 2026 target.</p>
+        <p style="margin-bottom:0;font-size:0.85rem;color:var(--text-muted);"><strong>Authors:</strong> Chamara R M L K, Malkith G W L, Gimhan T P K, Ranathunga R A K N, H. De Silva, I. Weerathunga.</p>
+      </div>
+      <div class="card card--purple">
+        <div class="card-icon">📄</div>
+        <span class="tag" style="background:#f0e9fa;color:var(--purple);">Planned</span>
+        <h4>Unified Emotion-Conditioned mT5 for Sinhala-to-SSL Sign Synthesis</h4>
+        <p>Extended paper focusing on Component 2's novel morphological normalization stage.</p>
+        <p style="margin-bottom:0;font-size:0.85rem;color:var(--text-muted);"><strong>Target:</strong> IEEE / ACM Accessibility venue — 2027.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT US ===================== -->
+<section id="about" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Team</span>
+      <h2>About Us</h2>
+      <p>Four final-year Software Engineering undergraduates from SLIIT, supervised by
+      Ms. Hansi De Silva and Ms. Ishara Weerathunga.</p>
+    </div>
+
+    <div class="team-grid">
+      <article class="team-card">
+        <div class="avatar a1" aria-hidden="true">CR</div>
+        <h3>Chamara R M L K</h3>
+        <p class="sid">IT22076816</p>
+        <span class="role">Component 1 Lead</span>
+        <p class="email"><a href="mailto:it22076816@my.sliit.lk">it22076816@my.sliit.lk</a></p>
+      </article>
+      <article class="team-card">
+        <div class="avatar a2" aria-hidden="true">MG</div>
+        <h3>Malkith G W L</h3>
+        <p class="sid">IT22630834</p>
+        <span class="role">Component 2 Lead</span>
+        <p class="email"><a href="mailto:it22630834@my.sliit.lk">it22630834@my.sliit.lk</a></p>
+      </article>
+      <article class="team-card">
+        <div class="avatar a3" aria-hidden="true">GT</div>
+        <h3>Gimhan T P K</h3>
+        <p class="sid">IT22266996</p>
+        <span class="role">Component 3 Lead</span>
+        <p class="email"><a href="mailto:it22266996@my.sliit.lk">it22266996@my.sliit.lk</a></p>
+      </article>
+      <article class="team-card">
+        <div class="avatar a4" aria-hidden="true">RA</div>
+        <h3>Ranathunga R A K N</h3>
+        <p class="sid">IT22552860</p>
+        <span class="role">Component 4 Lead</span>
+        <p class="email"><a href="mailto:it22552860@my.sliit.lk">it22552860@my.sliit.lk</a></p>
+      </article>
+    </div>
+
+    <div class="supervisors">
+      <div class="supervisor-card">
+        <p class="sup-role">Supervisor</p>
+        <h4>Ms. Hansi De Silva</h4>
+        <p>Department of Computer Science &amp; Software Engineering, SLIIT</p>
+      </div>
+      <div class="supervisor-card">
+        <p class="sup-role">Co-Supervisor</p>
+        <h4>Ms. Ishara Weerathunga</h4>
+        <p>Department of Computer Science &amp; Software Engineering, SLIIT</p>
+      </div>
+    </div>
+
+    <!-- Acknowledgements -->
+    <div class="ack-box" style="margin-top: 3rem;">
+      <h3 style="margin-bottom: 0.75rem;">Acknowledgements</h3>
+      <p>We express our sincere gratitude to our supervisor <strong>Ms. Hansi De Silva</strong> and co-supervisor
+      <strong>Ms. Ishara Weerathunga</strong> for their invaluable guidance, continuous encouragement, and
+      constructive feedback throughout this research.</p>
+      <p>We are profoundly grateful to <strong>The School for the Deaf, Ratmalana</strong> and its administration
+      for their willingness to collaborate on this research and for providing authentic Sri Lankan Sign Language
+      domain knowledge. Their commitment to supporting the Deaf community has been invaluable.</p>
+      <p>We thank the <strong>Sri Lanka Institute of Information Technology (SLIIT)</strong> and the
+      <strong>Centre of Excellence for AI (CoEAI)</strong> for providing the resources, facilities, and academic
+      environment that made this research possible.</p>
+      <p style="margin-bottom:0;">Finally, we thank all Deaf and hearing participants who contributed their time
+      and feedback during user testing, and acknowledge all researchers whose work has been cited in this study.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Contact Us</h2>
+      <p>For collaboration, research inquiries, or feedback about the project.</p>
+    </div>
+
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>We welcome inquiries from researchers, accessibility advocates, healthcare providers, and members
+        of the Deaf community.</p>
+
+        <div class="contact-line">
+          <div class="ico">✉️</div>
+          <div><strong>Email</strong><span>r26.se.019@my.sliit.lk</span></div>
+        </div>
+        <div class="contact-line">
+          <div class="ico">🏛️</div>
+          <div><strong>Institution</strong><span>Sri Lanka Institute of Information Technology (SLIIT)</span></div>
+        </div>
+        <div class="contact-line">
+          <div class="ico">📍</div>
+          <div><strong>Address</strong><span>New Kandy Road, Malabe, Sri Lanka</span></div>
+        </div>
+        <div class="contact-line">
+          <div class="ico">🌐</div>
+          <div><strong>Department</strong><span>Computer Science &amp; Software Engineering</span></div>
+        </div>
+      </div>
+
+      <form class="contact-form" action="#" method="post"
+        onsubmit="event.preventDefault(); alert('Thank you for your message. This is a demo form — connect it to a backend or a mail service to receive submissions.');">
+        <h3>Send Us a Message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject" required>
+            <option value="">Select a topic…</option>
+            <option>Research collaboration</option>
+            <option>Deaf community inquiry</option>
+            <option>Institutional partnership</option>
+            <option>Media / press</option>
+            <option>General feedback</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Type your message here…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+          Send Message →
+        </button>
+        <p class="form-note">We typically respond within 2–3 working days.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-mark">R26<br>SE</div>
+        <p style="color:#fff;font-weight:700;margin-bottom:0.3rem;">R26-SE-019</p>
+        <p>Academic research project website — documenting the Transformer-Based Real-Time Bidirectional AI System
+        for the Deaf and Hearing Community.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#domain">Domain</a></li>
+          <li><a href="#methodology">Methodology</a></li>
+          <li><a href="#findings">Findings</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#milestones">Milestones</a></li>
+          <li><a href="#documents">Documents</a></li>
+          <li><a href="#presentations">Presentations</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 R26-SE-019 · Sri Lanka Institute of Information Technology</span>
+      <span>Built with HTML &amp; CSS · SDG 10 — Reduced Inequalities</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navList   = document.getElementById('navList');
+  navToggle.addEventListener('click', () => {
+    const open = navList.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  navList.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navList.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Active nav link highlighting on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-list a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
